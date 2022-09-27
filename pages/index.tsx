@@ -1,12 +1,11 @@
 import {
   useContract,
   useNFTs,
-  useMintNFT,
   ThirdwebNftMedia,
-  Web3Button,
 } from "@thirdweb-dev/react";
+import Link from "next/link";
 
-const CONTRACT_ADDRESS = '0xAD3Cd2283FB49415a5fF1998e32d101c89FAf771';
+const CONTRACT_ADDRESS = "0xAD3Cd2283FB49415a5fF1998e32d101c89FAf771";
 
 export default function Home() {
   const { contract } = useContract(CONTRACT_ADDRESS);
@@ -14,32 +13,25 @@ export default function Home() {
 
   return (
     <div>
-      <h2>My NFTs</h2>
+      <p>
+        Own a piece of the internet.{" "}
+        <strong>Your piece of the internet!</strong>{" "}
+        <Link href={"/mint"}>Click here</Link> to mint your twitter profile!
+      </p>
+
+      <h3>Everybody else is doing it:</h3>
       {isReadingNfts ? (
         <p>Loading...</p>
       ) : (
         <div>
           {nfts &&
             nfts.map((nft, index) => (
-              <ThirdwebNftMedia
-                key={index}
-                metadata={nft.metadata}
-                height={"200"}
-              />
+              <div key={index}>
+                <ThirdwebNftMedia metadata={nft.metadata} height={"200"} />
+              </div>
             ))}
         </div>
       )}
-
-      <Web3Button
-        contractAddress={CONTRACT_ADDRESS}
-        action={(contract) =>
-          contract.erc721.mint({
-            name: "Hello world!",
-          })
-        }
-      >
-        Mint NFT
-      </Web3Button>
     </div>
   );
 }

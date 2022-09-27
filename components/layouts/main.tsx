@@ -7,15 +7,19 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
+const MainContainer = styled.main`
+  text-align: center;
+`
+
 export const Main: React.FC = ({ children }) => {
   return (
-    <>
+    <div>
       <Header>
-        <h1>Mint Yo Self</h1>
+        <h1>$Mint Yo Self</h1>
         <ConnectWallet colorMode="light" accentColor="#000000" />
       </Header>
 
-      <main>{children}</main>
-    </>
+      <MainContainer>{children}</MainContainer>
+    </div>
   );
 };
