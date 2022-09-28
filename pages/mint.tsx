@@ -1,16 +1,11 @@
 import styled from "@emotion/styled";
 import {
-  useContract,
-  useNFTs,
-  useMintNFT,
-  ThirdwebNftMedia,
   Web3Button,
 } from "@thirdweb-dev/react";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from 'next/router';
-
-const CONTRACT_ADDRESS = "0xAD3Cd2283FB49415a5fF1998e32d101c89FAf771";
+import { MINTING_CONTRACT_ADDRESS } from "../constants/contracts";
 
 const Container = styled.div`
   display: flex;
@@ -44,7 +39,7 @@ export default function Home() {
         </InputContainer>
 
         <Web3Button
-          contractAddress={CONTRACT_ADDRESS}
+          contractAddress={MINTING_CONTRACT_ADDRESS!}
           isDisabled={!twitterUsername}
           action={async (contract) => {
             const response = await axios.get('/api/twitter/user', { params: { username: twitterUsername } });

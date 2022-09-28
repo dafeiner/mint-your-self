@@ -1,8 +1,7 @@
 import { useContract, useNFTs, ThirdwebNftMedia } from "@thirdweb-dev/react";
 import Link from "next/link";
 import styled from "@emotion/styled";
-
-const CONTRACT_ADDRESS = "0xAD3Cd2283FB49415a5fF1998e32d101c89FAf771";
+import { MINTING_CONTRACT_ADDRESS } from "../constants/contracts";
 
 const Container = styled.div`
   text-align: left;
@@ -11,7 +10,7 @@ const Container = styled.div`
 const NFTWrapper = styled.div``;
 
 export default function Home() {
-  const { contract } = useContract(CONTRACT_ADDRESS);
+  const { contract } = useContract(MINTING_CONTRACT_ADDRESS);
   const { data: nfts, isLoading: isReadingNfts } = useNFTs(contract);
 
   return (
