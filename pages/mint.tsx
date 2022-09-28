@@ -44,7 +44,6 @@ export default function Home() {
           action={async (contract) => {
             const response = await axios.get('/api/twitter/user', { params: { username: twitterUsername } });
             const userData = response.data.data;
-            debugger;
             await contract.erc721.mint({
               name: userData.username,
               description: userData.name,
@@ -53,7 +52,7 @@ export default function Home() {
             router.push('/');
           }}
         >
-          Mint NFT
+          Mint Twitter Profile
         </Web3Button>
       </Container>
     </div>
