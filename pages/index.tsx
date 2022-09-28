@@ -7,7 +7,10 @@ const Container = styled.div`
   text-align: left;
 `;
 
-const NFTWrapper = styled.div``;
+const UnstyledLink = styled.a`
+  color: inherit;
+  text-decoration: inherit;
+`
 
 export default function Home() {
   const { contract } = useContract(MINTING_CONTRACT_ADDRESS);
@@ -29,9 +32,9 @@ export default function Home() {
           <div>
             {nfts &&
               nfts.map((nft, index) => (
-                <NFTWrapper key={index}>
+                <div key={index}>
                   <div>
-                    <b>{nft.metadata.name}:</b>
+                    <b><UnstyledLink href={`https://twitter.com/${nft.metadata.name}`}>@{nft.metadata.name}</UnstyledLink></b>
                   </div>
                   <ThirdwebNftMedia
                     style={{
@@ -42,7 +45,7 @@ export default function Home() {
                     metadata={nft.metadata}
                     height={"200"}
                   />
-                </NFTWrapper>
+                </div>
               ))}
           </div>
         )}
