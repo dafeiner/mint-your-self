@@ -48,7 +48,7 @@ export default function Home() {
             await contract.erc721.mint({
               name: userData.username,
               description: userData.name,
-              image: userData.profile_image_url,
+              image: userData.profile_image_url.replace('_normal', ''),
             })
             router.push('/');
           }}
