@@ -6,8 +6,9 @@ import {
   ThirdwebNftMedia,
   Web3Button,
 } from "@thirdweb-dev/react";
+import axios from "axios";
 import { useState } from "react";
-import { fetchUserData } from "../lib/twitter";
+import { useRouter } from 'next/router';
 
 const CONTRACT_ADDRESS = "0xAD3Cd2283FB49415a5fF1998e32d101c89FAf771";
 
@@ -22,8 +23,8 @@ const InputContainer = styled.div`
 `
 
 export default function Home() {
+  const router = useRouter()
   const [twitterUsername, setTwitterUserName] = useState<string>('');
-  const { contract } = useContract(CONTRACT_ADDRESS);
 
   return (
     <div>
@@ -46,10 +47,15 @@ export default function Home() {
           contractAddress={CONTRACT_ADDRESS}
           isDisabled={!twitterUsername}
           action={async (contract) => {
+            const response = await axios.get('/api/twitter/user', { params: { username: twitterUsername } });
+            const userData = response.data.data;
             debugger;
-            // contract.erc721.mint({
-            //   name: "Hello world!",
-            // })
+            await contract.erc721.mint({
+              name: userData.username,
+              description: userData.name,
+              image: userData.profile_image_url,
+            })
+            router.push('/');
           }}
         >
           Mint NFT

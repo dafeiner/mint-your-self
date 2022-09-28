@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (username) {
     try {
       const data = await fetchUserData(username);
-      res.status(200).json({ data });
+      res.status(200).json({ data: { ...data } });
     } catch (error) {
       res.status(400).json({ error: 'Bad Request To Twitter' });
     }
